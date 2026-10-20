@@ -27,7 +27,6 @@ interface AuthFormProps {
 export function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const supabase = React.useMemo(() => createClient(), []);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [fullName, setFullName] = React.useState("");
@@ -38,6 +37,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   async function handleEmailSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
+    const supabase = createClient();
     try {
       if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
@@ -66,6 +66,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   }
 
   async function handleGoogle() {
+    const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
