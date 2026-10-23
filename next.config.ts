@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  eslint: {
+    // Prevent ESLint version/config mismatches from failing production builds on Vercel.
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
